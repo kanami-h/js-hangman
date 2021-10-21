@@ -5,7 +5,31 @@ class Hangman {
     this.guessedLetters = [];
     this.status = "playing";
   }
-  getPuzzle() {
+  calucStatus() {
+    const finished = this.word.every(
+      (letter) => this.guessedLetters.includes(letter) || letter === " ",
+    );
+
+    if (this.remainingGuesses === 0) {
+      this.status = "failed";
+    } else if (finished) {
+      this.status = "finished";
+    } else {
+      this.status = "playing";
+    }
+  }
+  get statusMessage() {
+    if (this.status === "playing") {
+      return `Guesses left: <span class="remaining-num">${game.remainingGuesses}</span>`;
+    } else if (this.status === "failed") {
+      section.classList.add("failed");
+      return `Nice guess! The word was "${this.word.join("")}"`;
+    } else {
+      section.classList.add("correct");
+      return `Great work! You guessed the word!`;
+    }
+  }
+  get puzzle() {
     let puzzle = "";
 
     this.word.forEach((letter) => {
@@ -36,33 +60,6 @@ class Hangman {
     }
 
     this.calucStatus();
-  }
-  calucStatus() {
-    let finished = true;
-    this.word.forEach((letter) => {
-      if (!this.guessedLetters.includes(letter)) {
-        finished = false;
-      }
-    });
-
-    if (this.remainingGuesses === 0) {
-      return (this.status = "failed");
-    } else if (finished) {
-      this.status = "finished";
-    } else {
-      this.status = "playing";
-    }
-  }
-  showMessage() {
-    if (this.status === "playing") {
-      return `Guesses left: <span class="remaining-num">${game.remainingGuesses}</span>`;
-    } else if (this.status === "failed") {
-      section.classList.add("failed");
-      return `Nice guess! The word was "${this.word.join("")}"`;
-    } else {
-      section.classList.add("correct");
-      return `Great work! You guessed the word!`;
-    }
   }
 }
 const section = document.querySelector(".section-center");
