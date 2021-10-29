@@ -20,7 +20,7 @@ class Hangman {
   }
   get statusMessage() {
     if (this.status === "playing") {
-      return `Guesses left: <span class="remaining-num">${game.remainingGuesses}</span>`;
+      return `Guesses left: <span class="remaining-num">${this.remainingGuesses}</span>`;
     } else if (this.status === "failed") {
       section.classList.add("failed");
       return `Nice guess! The word was "${this.word.join("")}"`;
@@ -63,3 +63,5 @@ class Hangman {
   }
 }
 const section = document.querySelector(".section-center");
+
+export { Hangman as default };

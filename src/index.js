@@ -1,3 +1,6 @@
+import Hangman from "./hangman";
+import getPuzzle from "./requests";
+
 const puzzleEl = document.querySelector(".puzzle");
 const message = document.querySelector(".status");
 const remainingNumber = document.querySelector(".remaining-num");
@@ -11,8 +14,13 @@ window.addEventListener("keypress", (e) => {
 });
 
 const render = () => {
-  puzzleEl.textContent = game.puzzle;
+  puzzleEl.textContent = "";
   message.innerHTML = game.statusMessage;
+  game.puzzle.split("").forEach((letter) => {
+    const letterEl = document.createElement("span");
+    letterEl.textContent = letter;
+    puzzleEl.appendChild(letterEl);
+  });
 };
 
 const startGame = async () => {
